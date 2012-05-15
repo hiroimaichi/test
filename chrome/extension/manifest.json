@@ -1,0 +1,12 @@
+{
+	"name": "Search Atnd",
+	"version": "1.0",
+	"description": "you can search atnd events with key words, date(year, month).",
+	"browser_action":{
+	"default_icon":"icon.png",
+	"popup": "search_atnd.html"
+	},
+	"permissions": [
+	"http://api.atnd.org/"
+	]
+}

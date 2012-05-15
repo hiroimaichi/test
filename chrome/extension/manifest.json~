@@ -1,0 +1,12 @@
+{
+	"name": "Hello World",
+	"version": "1.0",
+	"description": "hello world",
+	"browser_action":{
+	"default_icon":"icon.png",
+	"popup": "search_atnd.html"
+	},
+	"permissions": [
+	"http://api.atnd.org/"
+	]
+}
