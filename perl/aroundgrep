@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+
+my $show_line;
+my $q;
+my $file;
+
+if (@ARGV == 2) {
+    $line = 3;
+    $q = $ARGV[0];
+    $file = $ARGV[1];
+}
+
+if (@ARGV == 3) {
+    $show_line = $ARGV[0];
+    $show_line =~ s/-//g;
+    $q = $ARGV[1];
+    $file = $ARGV[2];
+}
+
+open(FILE, "< $file") or die("error :$!");
+
+my $hit = 1;
+my @hit_lines;
+while (my $line = <FILE>) {
+    if ($line =~ /${q}/) {
+        for (my $i = $show_line * (-1) ; $i <= $show_line ; $i++) {
+            push(@hit_lines, $. + $i);
+        }
+    }
+    $hit++;
+}
+close FILE;
+
+@hit_lines = sort {$a <=> $b} @hit_lines;
+
+open(FILE, "< $file") or die("error :$!");
+while(my $line = <FILE>) {
+    foreach $hit_line (@hit_lines) {
+        if ($. == $hit_line) {
+            printf "%s: %s", $., $line;
+        }
+    }
+}
+close FILE;
