@@ -5,7 +5,7 @@ my $q;
 my $file;
 
 if (@ARGV == 2) {
-    $line = 3;
+    $show_line = 3;
     $q = $ARGV[0];
     $file = $ARGV[1];
 }
