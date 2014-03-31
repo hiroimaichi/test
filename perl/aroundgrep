@@ -1,33 +1,32 @@
 #!/usr/bin/perl
 
-my $show_line;
+use Getopt::Long;
+
+my $show_line = 3;
 my $q;
 my $file;
 
+GetOptions("n=i" => \$show_line);
+
 if (@ARGV == 2) {
-    $show_line = 3;
-    $q = $ARGV[0];
-    $file = $ARGV[1];
+        $q = $ARGV[0];
+        $file = $ARGV[1];
+} else {
+        die("target keyword and file are needed. \n usage: aroundgrep \"hoge\" fugafuga.txt");
 }
 
-if (@ARGV == 3) {
-    $show_line = $ARGV[0];
-    $show_line =~ s/-//g;
-    $q = $ARGV[1];
-    $file = $ARGV[2];
-}
 
 open(FILE, "< $file") or die("error :$!");
 
 my $hit = 1;
 my @hit_lines;
 while (my $line = <FILE>) {
-    if ($line =~ /${q}/) {
-        for (my $i = $show_line * (-1) ; $i <= $show_line ; $i++) {
-            push(@hit_lines, $. + $i);
+        if ($line =~ /${q}/) {
+                for (my $i = $show_line * (-1) ; $i <= $show_line ; $i++) {
+                        push(@hit_lines, $. + $i);
+                }
         }
-    }
-    $hit++;
+        $hit++;
 }
 close FILE;
 
@@ -35,10 +34,10 @@ close FILE;
 
 open(FILE, "< $file") or die("error :$!");
 while(my $line = <FILE>) {
-    foreach $hit_line (@hit_lines) {
-        if ($. == $hit_line) {
-            printf "%s: %s", $., $line;
+        foreach $hit_line (@hit_lines) {
+                if ($. == $hit_line) {
+                        printf "%s: %s", $., $line;
+                }
         }
-    }
 }
 close FILE;
